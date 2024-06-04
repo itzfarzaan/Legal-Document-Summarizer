@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Document Summarizer</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Document Summarizer</h1>
+        <div class="row mt-4">
+            <div class="col-md-6 offset-md-3">
+                <form id="upload-form">
+                    <div class="form-group">
+                        <label for="file">Upload a PDF file:</label>
+                        <input type="file" class="form-control-file" id="file" name="file" accept=".pdf">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Summarize</button>
+                </form>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <h3>Document Text:</h3>
+                <div id="document-text"></div>
+            </div>
+            <div class="col-md-6">
+                <h3>Summary:</h3>
+                <div id="summary"></div>
+                <div class="mt-3">
+                    <label for="language">Select target language:</label>
+                    <select id="language" class="form-control">
+                        <option value="en">English</option>
+                        <option value="es">Spanish</option>
+                        <option value="fr">French</option>
+                        <option value="de">German</option>
+                        <option value="it">Italian</option>
+                        <option value="pt">Portuguese</option>
+                        <option value="ru">Russian</option>
+                        <option value="ja">Japanese</option>
+                        <option value="ko">Korean</option>
+                        <option value="hi">Hindi</option>
+                        <option value="ar">Arabic</option>
+                    </select>
+                    <button id="translate-btn" class="btn btn-primary mt-2">Translate Summary</button>
+                </div>
+                <div id="translated-summary" class="mt-3"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#upload-form').submit(function(e) {
+                e.preventDefault();
+                var formData = new FormData();
+                var file = $('#file')[0].files[0];
+                if (file) {
+                    formData.append('file', file);
+                    $.ajax({
+                        url: '/summarize',
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function(response) {
+                            $('#document-text').text(response.text);
+                            $('#summary').text(response.summary);
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(xhr.responseText);
+                            alert('An error occurred while summarizing the document.');
+                        }
+                    });
+                } else {
+                    alert('Please select a PDF file to summarize.');
+                }
+            });
+
+            $('#translate-btn').click(function() {
+                var summary = $('#summary').text();
+                var language = $('#language').val();
+                $.ajax({
+                    url: '/translate',
+                    type: 'POST',
+                    data: {
+                        'summary': summary,
+                        'language': language
+                    },
+                    success: function(response) {
+                        $('#translated-summary').text('Translated Summary (' + language + '): ' + response.translated_summary);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
