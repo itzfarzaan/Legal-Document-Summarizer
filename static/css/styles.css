@@ -1,0 +1,93 @@
+/* styles.css */
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+
+/* General Styles */
+body {
+    background-color: #1E1C1C;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    font-family: 'Ubuntu';
+}
+
+.navbar {
+    background-color: #434343; /* Corporate color */
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+}
+
+.row{
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar-brand {
+    color: white;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+}
+
+
+.container {
+    margin-top: 20px;
+}
+
+.card {
+    border: 2px solid #AFA939; /* Corporate color for borders */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    width: 130vh;
+    margin: 0px 150px;
+}
+
+.card-header {
+    background-color: #AFA939; /* Corporate color */
+    color: white;
+    font-weight: bold;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    text-align: center;
+    font-size: 20px;
+}
+
+.btn-primary {
+    background-color: #AFA939; /* Corporate color */
+    border-color: #AFA939; /* Corporate color */
+}
+
+.btn-primary:hover {
+    background-color: #8D8B30; /* Darker shade for hover */
+    border-color: #8D8B30;
+}
+
+.form-control:focus {
+    border-color: #AFA939; /* Corporate color for focus */
+    box-shadow: 0 0 0 0.2rem rgba(175, 169, 57, 0.25);
+}
+
+.progress {
+    height: 20px;
+    border-radius: 10px;
+    background-color: #e9ecef; /* Light gray background */
+}
+
+.progress-bar {
+    background-color: #AFA939; /* Corporate color */
+}
+
+#loading {
+    text-align: center;
+    font-size: 1.2em;
+    color: #AFA939; /* Corporate color */
+    width: 130vh;
+    margin: 0px 150px;
+}
+
+/* Spacing between sections */
+.mt-5, .mt-4 {
+    margin-top: 40px !important;
+}
